@@ -1,4 +1,4 @@
-Easy setup for a sandboxed copy of OpenGrok with all its dependencies, buit from source!
+Easy setup for a sandboxed copy of OpenGrok with all its dependencies, built from source!
 
 1. Clone this repo
 1. git submodule init

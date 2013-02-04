@@ -63,8 +63,10 @@ file_line { "7 jdk java_home":
 }
 
 exec { 'copy source' :
-    command => "/bin/su vagrant -c '/bin/cp -r /vagrant/OpenGrok /home/vagrant/'",
+    command => "/bin/su vagrant -c '/usr/bin/git clone git://github.com/OpenGrok/OpenGrok.git'",
+    cwd => '/home/vagrant',
     creates => '/home/vagrant/OpenGrok',
+    require => Package["git"],
 }
 
 exec { 'get jflex' :

@@ -1,4 +1,5 @@
 
+/*
 package { "python-software-properties":
     ensure => present,
 }
@@ -16,10 +17,11 @@ exec { 'add oracle ppa':
              "/opt/vagrant_ruby/bin"],
     require => Package['python-software-properties'],
 }
+*/
 
 exec { 'apt-get update':
     command => '/usr/bin/apt-get update',
-    require => Exec['add oracle ppa'],
+    #require => Exec['add oracle ppa'],
 }
 
 package { "vim":
@@ -47,6 +49,17 @@ package { "ant":
 package { "maven":
     ensure => present,
     require => Exec['apt-get update'],
+}
+
+package { "openjdk-7-jdk":
+    ensure => present,
+    require => Exec['apt-get update'],
+}
+
+file_line { "7 jdk java_home":
+    path    => "/etc/environment",
+    line    => "JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386",
+    require => Package["openjdk-7-jdk"],
 }
 
 exec { 'copy source' :

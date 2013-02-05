@@ -13,6 +13,16 @@ package { "git":
     require => Exec['apt-get update'],
 }
 
+package { "mercurial":
+    ensure => present,
+    require => Exec['apt-get update'],
+}
+
+package { "exuberant-ctags":
+    ensure => present,
+    require => Exec['apt-get update'],
+}
+
 package { "ant":
     ensure => present,
     require => Exec['apt-get update'],

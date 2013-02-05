@@ -8,9 +8,9 @@ To get puppet ready, do this to get the vagrant vm running:
 1. cd OpenGrok
 1. ant
 
-Note: this is going to download a copy of Ubuntu 12.04 32bit and then a bunch of dependencies, so dial-up users beware.
+*DIALUP USERS BEWARE* - This is going to download a copy of Ubuntu 12.04 32bit and then a bunch of dependencies.  Nearly a gig or so.
 
 
 ### TODO
-* Get `ant default` working by adding junit and hamcrest to the puppet provisioning.
-* Get JUnit tests to pass.
+* Get `ant default` tests to be readable and passing.
+* Get JUnit tests for `mvn install` to pass.

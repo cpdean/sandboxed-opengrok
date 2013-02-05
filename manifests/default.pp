@@ -3,37 +3,31 @@ exec { 'apt-get update':
     #require => Exec['add oracle ppa'],
 }
 
-package { "vim":
-    ensure => present,
-    require => Exec['apt-get update'],
-}
+$apt_packages = [
+    "vim",
+    "git",
+    "mercurial",
+    "exuberant-ctags",
+    "maven",
+    "subversion",
+]
 
-package { "git":
-    ensure => present,
-    require => Exec['apt-get update'],
-}
+$vagrant_path = [
+             "/usr/local/sbin",
+             "/usr/local/bin",
+             "/usr/sbin",
+             "/usr/bin",
+             "/sbin",
+             "/bin",
+             "/usr/games",
+             "/opt/vagrant_ruby/bin"]
 
-package { "mercurial":
-    ensure => present,
-    require => Exec['apt-get update'],
-}
-
-package { "exuberant-ctags":
+package { $apt_packages:
     ensure => present,
     require => Exec['apt-get update'],
 }
 
 package { "ant":
-    ensure => present,
-    require => Exec['apt-get update'],
-}
-
-package { "maven":
-    ensure => present,
-    require => Exec['apt-get update'],
-}
-
-package { "subversion":
     ensure => present,
     require => Exec['apt-get update'],
 }
@@ -80,15 +74,7 @@ exec { 'get jflex' :
     require => Exec['copy source'],
     command => 'wget http://jflex.de/jflex-1.4.3.tar.gz; tar -zxf jflex-1.4.3.tar.gz; mv jflex/lib/JF* .; rm -r jflex*',
     creates => '/home/vagrant/OpenGrok/lib/JFlex.jar',
-    cwd => '/home/vagrant/OpenGrok/lib',
-    path => [
-             "/usr/local/sbin",
-             "/usr/local/bin",
-             "/usr/sbin",
-             "/usr/bin",
-             "/sbin",
-             "/bin",
-             "/usr/games",
-             "/opt/vagrant_ruby/bin"],
+    cwd     => '/home/vagrant/OpenGrok/lib',
+    path    => $path,
 }
 

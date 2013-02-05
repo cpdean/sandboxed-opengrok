@@ -82,8 +82,8 @@ file { "/home/vagrant/.ant/lib":
 }
 
 exec { "install junit":
-    command => "/bin/su vagrant -c '/usr/bin/wget http://search.maven.org/remotecontent?filepath=junit/junit/4.11/junit-4.11.jar -O junit-4.11.jar'",
-    creates => '/home/vagrant/.ant/lib/junit-4.11.jar',
+    command => "/bin/su vagrant -c '/usr/bin/wget http://search.maven.org/remotecontent?filepath=junit/junit/4.8/junit-4.8.jar -O junit-4.8.jar'",
+    creates => '/home/vagrant/.ant/lib/junit-4.8.jar',
     cwd     => '/home/vagrant/.ant/lib',
 }
 

@@ -51,6 +51,11 @@ package { "maven":
     require => Exec['apt-get update'],
 }
 
+package { "subversion":
+    ensure => present,
+    require => Exec['apt-get update'],
+}
+
 package { "openjdk-7-jdk":
     ensure => present,
     require => Exec['apt-get update'],

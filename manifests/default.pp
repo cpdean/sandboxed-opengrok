@@ -62,6 +62,26 @@ file_line { "7 jdk java_home":
     require => Package["openjdk-7-jdk"],
 }
 
+file { "/home/vagrant/.ant":
+    ensure => directory,
+    mode   => 0644,
+    owner  => "vagrant",
+    group  => "vagrant",
+}
+
+file { "/home/vagrant/.ant/lib":
+    ensure => directory,
+    mode   => 0644,
+    owner  => "vagrant",
+    group  => "vagrant",
+}
+
+exec { "install junit":
+    command => "/bin/su vagrant -c '/usr/bin/wget http://search.maven.org/remotecontent?filepath=junit/junit/4.11/junit-4.11.jar -O junit-4.11.jar'",
+    creates => '/home/vagrant/.ant/lib/junit-4.11.jar',
+    cwd     => '/home/vagrant/.ant/lib',
+}
+
 exec { 'copy source' :
     command => "/bin/su vagrant -c '/usr/bin/git clone git://github.com/OpenGrok/OpenGrok.git'",
     cwd => '/home/vagrant',

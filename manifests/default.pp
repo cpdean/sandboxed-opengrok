@@ -58,21 +58,29 @@ file { "/home/vagrant/.ant/lib":
 }
 
 exec { "install junit":
-    command => "/bin/su vagrant -c '/usr/bin/wget http://search.maven.org/remotecontent?filepath=junit/junit/4.8/junit-4.8.jar -O junit-4.8.jar'",
+    command => "wget http://search.maven.org/remotecontent?filepath=junit/junit/4.8/junit-4.8.jar -O junit-4.8.jar",
+    user    => "vagrant",
+    group   => "vagrant",
     creates => '/home/vagrant/.ant/lib/junit-4.8.jar',
     cwd     => '/home/vagrant/.ant/lib',
+    path    => $vagrant_path,
 }
 
 exec { 'copy source' :
-    command => "/bin/su vagrant -c '/usr/bin/git clone git://github.com/OpenGrok/OpenGrok.git'",
+    command => "git clone git://github.com/OpenGrok/OpenGrok.git",
+    user    => "vagrant",
+    group   => "vagrant",
     cwd => '/home/vagrant',
     creates => '/home/vagrant/OpenGrok',
+    path    => $vagrant_path,
     require => Package["git"],
 }
 
 exec { 'get jflex' :
     require => Exec['copy source'],
     command => 'wget http://jflex.de/jflex-1.4.3.tar.gz; tar -zxf jflex-1.4.3.tar.gz; mv jflex/lib/JF* .; rm -r jflex*',
+    user    => "vagrant",
+    group   => "vagrant",
     creates => '/home/vagrant/OpenGrok/lib/JFlex.jar',
     cwd     => '/home/vagrant/OpenGrok/lib',
     path    => $path,

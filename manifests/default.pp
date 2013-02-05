@@ -10,7 +10,9 @@ $apt_packages = [
     "mercurial",
     "exuberant-ctags",
     "maven",
+    "ant",
     "subversion",
+    "openjdk-7-jdk",
 ]
 
 $vagrant_path = [
@@ -24,16 +26,6 @@ $vagrant_path = [
              "/opt/vagrant_ruby/bin"]
 
 package { $apt_packages:
-    ensure => present,
-    require => Exec['apt-get update'],
-}
-
-package { "ant":
-    ensure => present,
-    require => Exec['apt-get update'],
-}
-
-package { "openjdk-7-jdk":
     ensure => present,
     require => Exec['apt-get update'],
 }

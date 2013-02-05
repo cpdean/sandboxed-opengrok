@@ -30,7 +30,7 @@ package { $apt_packages:
     require => Exec['apt-get update'],
 }
 
-file_line { "7 jdk java_home":
+file_line { "jdk java_home":
     path    => "/etc/environment",
     line    => "JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386",
     require => Package["openjdk-7-jdk"],

@@ -1,6 +1,7 @@
 exec { 'apt-get update':
     command => '/usr/bin/apt-get update',
-    #require => Exec['add oracle ppa'],
+    user    => 'root',
+    group   => 'root',
 }
 
 $apt_packages = [
@@ -57,32 +58,29 @@ file { "/home/vagrant/.ant/lib":
     group  => "vagrant",
 }
 
-exec { "install junit":
-    command => "wget http://search.maven.org/remotecontent?filepath=junit/junit/4.8/junit-4.8.jar -O junit-4.8.jar",
+Exec {
     user    => "vagrant",
     group   => "vagrant",
+    path    => $vagrant_path,
+}
+
+exec { "install junit":
+    command => "wget http://search.maven.org/remotecontent?filepath=junit/junit/4.8/junit-4.8.jar -O junit-4.8.jar",
     creates => '/home/vagrant/.ant/lib/junit-4.8.jar',
     cwd     => '/home/vagrant/.ant/lib',
-    path    => $vagrant_path,
 }
 
 exec { 'copy source' :
     command => "git clone git://github.com/OpenGrok/OpenGrok.git",
-    user    => "vagrant",
-    group   => "vagrant",
     cwd => '/home/vagrant',
     creates => '/home/vagrant/OpenGrok',
-    path    => $vagrant_path,
     require => Package["git"],
 }
 
 exec { 'get jflex' :
     require => Exec['copy source'],
     command => 'wget http://jflex.de/jflex-1.4.3.tar.gz; tar -zxf jflex-1.4.3.tar.gz; mv jflex/lib/JF* .; rm -r jflex*',
-    user    => "vagrant",
-    group   => "vagrant",
     creates => '/home/vagrant/OpenGrok/lib/JFlex.jar',
     cwd     => '/home/vagrant/OpenGrok/lib',
-    path    => $path,
 }
 

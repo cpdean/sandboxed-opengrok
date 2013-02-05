@@ -1,9 +1,3 @@
-exec { 'apt-get update':
-    command => '/usr/bin/apt-get update',
-    user    => 'root',
-    group   => 'root',
-}
-
 $apt_packages = [
     "vim",
     "git",
@@ -16,17 +10,24 @@ $apt_packages = [
 ]
 
 $vagrant_path = [
-             "/usr/local/sbin",
-             "/usr/local/bin",
-             "/usr/sbin",
-             "/usr/bin",
-             "/sbin",
-             "/bin",
-             "/usr/games",
-             "/opt/vagrant_ruby/bin"]
+    "/usr/local/sbin",
+    "/usr/local/bin",
+    "/usr/sbin",
+    "/usr/bin",
+    "/sbin",
+    "/bin",
+    "/usr/games",
+    "/opt/vagrant_ruby/bin",
+]
+
+exec { 'apt-get update':
+    command => '/usr/bin/apt-get update',
+    user    => 'root',
+    group   => 'root',
+}
 
 package { $apt_packages:
-    ensure => present,
+    ensure  => present,
     require => Exec['apt-get update'],
 }
 
@@ -51,9 +52,9 @@ file { "/home/vagrant/.ant/lib":
 }
 
 Exec {
-    user    => "vagrant",
-    group   => "vagrant",
-    path    => $vagrant_path,
+    user  => "vagrant",
+    group => "vagrant",
+    path  => $vagrant_path,
 }
 
 exec { "install junit":
@@ -64,7 +65,7 @@ exec { "install junit":
 
 exec { 'copy source' :
     command => "git clone git://github.com/OpenGrok/OpenGrok.git",
-    cwd => '/home/vagrant',
+    cwd     => '/home/vagrant',
     creates => '/home/vagrant/OpenGrok',
     require => Package["git"],
 }

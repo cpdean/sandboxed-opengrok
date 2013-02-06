@@ -1,5 +1,8 @@
 Easy setup for a sandboxed copy of OpenGrok with all its dependencies, built from source!
 
+This requires that you have [Virtualbox](https://www.virtualbox.org/)
+and [Vagrant](http://www.vagrantup.com/) installed.
+
 To get puppet ready, do this to get the vagrant vm running:
 
 1. Clone this repo
